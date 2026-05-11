@@ -2,11 +2,12 @@ import { db } from "@repo/db";
 import { chatRooms, chatMessages, agentTasks } from "@repo/db/schemas";
 import { eq, desc, max, asc } from "drizzle-orm";
 
-export async function createChat(userId: string) {
+export async function createChat(userId: string, title?: string) {
     const [chat] = await db
         .insert(chatRooms)
         .values({
             userId,
+            ...(title !== undefined ? { title } : {}),
         })
         .returning();
 

@@ -5,41 +5,73 @@ import {
     getChatWithMessages,
     appendUserMessageWithTask,
 } from "../chat/service";
-
-
+import { requireAuth, AuthenticatedRequest } from "../auth/middleware";
 import { db } from "@repo/db";
-import { users } from "@repo/db/schemas";
+import { chatRooms, agentTasks } from "@repo/db/schemas";
+import { eq, desc, and } from "drizzle-orm";
 
 const router: Router = Router();
 
-// Mock Auth Middleware
-// In a real app this would extract the user from the session/token
-const requireAuth = async (req: Request, res: Response, next: Function) => {
-    // Assuming user ID is injected into the request by a real auth middleware
-    // We'll hardcode one for testing purposes until auth is implemented
-    const dummyUserId = "00000000-0000-0000-0000-000000000000";
-
-    // Ensure the dummy user exists in the DB so foreign key constraints don't fail
+// List all chats for the authenticated user
+router.get("/", requireAuth, async (req: Request, res: Response) => {
     try {
-        await db.insert(users).values({
-            id: dummyUserId,
-            googleId: "mock-google-id",
-            email: "test@example.com",
-            name: "Test User"
-        }).onConflictDoNothing();
-    } catch (e) {
-        console.error("Failed to seed dummy user", e);
+        const authReq = req as AuthenticatedRequest;
+        const chats = await db
+            .select()
+            .from(chatRooms)
+            .where(eq(chatRooms.userId, authReq.user!.id))
+            .orderBy(desc(chatRooms.updatedAt));
+        res.json({ chats });
+    } catch (error) {
+        console.error("Failed to list chats", error);
+        res.status(500).json({ error: "Internal server error" });
     }
+});
 
-    (req as Request & { user?: { id: string } }).user = { id: dummyUserId };
-    next();
-};
-
-router.post("/", requireAuth, async (req: Request, res: Response) => {
+// Update chat title
+router.patch("/:chatId", requireAuth, async (req: Request, res: Response) => {
     try {
-        const validatedBody = ChatCreateSchema.parse(req.body);
-        const authReq = req as Request & { user?: { id: string } };
-        const chat = await createChat(authReq.user!.id);
+        const authReq = req as AuthenticatedRequest;
+        const chatId = req.params.chatId as string;
+        const { title } = req.body as { title: string };
+        if (!title) { res.status(400).json({ error: "title required" }); return; }
+        const [updated] = await db
+            .update(chatRooms)
+            .set({ title: title.substring(0, 80) })
+            .where(and(eq(chatRooms.id, chatId), eq(chatRooms.userId, authReq.user!.id)))
+            .returning();
+        res.json(updated);
+    } catch (error) {
+        console.error("Failed to update chat", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.post("/", requireAuth, async (req: Request, res: Response): Promise<void> => {
+    try {
+        const authReq = req as AuthenticatedRequest;
+        const { initialMessage } = req.body as { initialMessage?: string };
+
+        const title = initialMessage ? initialMessage.substring(0, 60) : undefined;
+        const chat = await createChat(authReq.user!.id, title);
+
+        if (initialMessage) {
+            if (activeAgentTasks >= MAX_CONCURRENT_TASKS) {
+                res.status(429).json({ error: "Too many active tasks. Please try again later." });
+                return;
+            }
+            activeAgentTasks++;
+            const result = await appendUserMessageWithTask(chat.id, authReq.user!.id, initialMessage.trim());
+            runAgentTask(result.taskId).catch(err => {
+                console.error("Background agent failed:", err);
+            }).finally(() => {
+                activeAgentTasks--;
+            });
+
+            res.json({ ...chat, initialTaskId: result.taskId });
+            return;
+        }
+
         res.json(chat);
     } catch (error) {
         console.error("Failed to create chat", error);
@@ -60,10 +92,24 @@ router.get("/:chatId", requireAuth, async (req: Request, res: Response) => {
     }
 });
 
+import { runAgentTask } from "../agent/runAgentTask";
+
+const MAX_CONCURRENT_TASKS = 10;
+export let activeAgentTasks = 0;
+
 router.post(
     "/:chatId/messages",
     requireAuth,
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response): Promise<void> => {
+        if (activeAgentTasks >= MAX_CONCURRENT_TASKS) {
+            res.status(429).json({ error: "Too many active tasks. Please try again later." });
+            return;
+        }
+
+        // Synchronously increment before any `await` yields the event loop!
+        activeAgentTasks++;
+        let taskHandledInAgent = false;
+
         try {
             const chatId = req.params.chatId as string;
             const validatedBody = ChatMessageCreateSchema.parse(req.body);
@@ -75,8 +121,20 @@ router.post(
                 validatedBody.content
             );
 
+            taskHandledInAgent = true;
+            // Execute real AI agent without awaiting 
+            // so HTTP response returns immediately
+            runAgentTask(result.taskId).catch(err => {
+                console.error("Background agent failed:", err);
+            }).finally(() => {
+                activeAgentTasks--;
+            });
+
             res.json(result);
         } catch (error) {
+            if (!taskHandledInAgent) {
+                activeAgentTasks--;
+            }
             console.error("Failed to append message", error);
             res.status(400).json({ error: "Invalid request" });
         }
