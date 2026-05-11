@@ -29,3 +29,22 @@ export async function healthCheckRedis(): Promise<boolean> {
     return false;
   }
 }
+
+type RedisXReadMessage = { id: string; message: Record<string, string> };
+type RedisXReadStream = { name: string; messages: RedisXReadMessage[] };
+
+export async function redisXRead(
+  streamKey: string,
+  sinceId: string,
+  count = 100
+): Promise<RedisXReadStream[] | null> {
+  const client = await getRedisClient();
+
+  const result = (await client.xRead(
+    [{ key: streamKey, id: sinceId }],
+    { COUNT: count, BLOCK: 0 }
+  )) as unknown as RedisXReadStream[] | null;
+
+  if (!result || result.length === 0) return null;
+  return result;
+}

@@ -2,17 +2,18 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "description": "",
+  "types": "./src/index.ts",
   "main": "index.js",
   "exports": {
     ".": {
       "require": "./dist/index.js",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./src/index.ts"
     },
     "./schemas": {
       "require": "./dist/schema.js",
       "import": "./dist/schema.js",
-      "types": "./dist/schema.d.ts"
+      "types": "./src/schema.ts"
     }
   },
   "scripts": {
