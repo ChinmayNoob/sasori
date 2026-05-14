@@ -1,5 +1,5 @@
 import { VectorSearchInputSchema } from "@repo/zod-schemas";
-import { embedText } from "../llm/embeddings";
+import { embedText } from "../llm/embedding";
 import { searchDriveVectors } from "@repo/qdrant";
 
 export async function vectorSearchTool(args: { query: string; topK?: number }) {
