@@ -19,7 +19,7 @@ export default function AgentThoughtLoader({ plan, thoughts, currentStepIndex }:
       <div className="flex flex-col flex-1 min-h-[40px] max-w-[85%] pt-1 gap-3">
         {/* Plan Checklist Section */}
         {plan && plan.length > 0 && (
-          <div className="glass-card flex flex-col gap-2 p-4 rounded-2xl border border-white/60 shadow-sm max-w-lg mb-2">
+          <div className="flex flex-col gap-2 p-4 rounded-2xl bg-white border border-stone-200/60 shadow-sm max-w-lg mb-2">
             <h4 className="text-xs font-medium text-stone-500 uppercase tracking-widest border-b border-stone-200/60 pb-2 mb-1">
               Agent Plan
             </h4>

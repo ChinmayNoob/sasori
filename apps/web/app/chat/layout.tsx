@@ -24,8 +24,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-pearl-50">
       <Sidebar />
-      <main className="flex-1 h-full relative border-l border-white/20 shadow-[inset_10px_0_30px_-15px_rgba(0,0,0,0.02)] pt-0 lg:pt-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[50vw] h-[50vh] bg-amber-50/40 rounded-full blur-[100px] opacity-50 pointer-events-none -z-10"></div>
+      <main className="flex-1 h-full relative border-l border-stone-200/60 pt-0 lg:pt-0 overflow-hidden">
         {children}
       </main>
     </div>

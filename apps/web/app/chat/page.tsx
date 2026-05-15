@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Send, ArrowLeft } from "lucide-react";
 import { fetchWithAuth } from "@/lib/apiClient";
@@ -48,12 +48,11 @@ export default function NewChatPage() {
   return (
     <div className="flex flex-col h-full w-full relative">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 flex items-center h-18 shrink-0 px-4 lg:px-8
-        bg-stone-100/90 backdrop-blur-xl border-b border-stone-200/70
-        shadow-[0_1px_0_rgba(0,0,0,0.06),0_4px_20px_-6px_rgba(0,0,0,0.08)]">
+      <div className="sticky top-0 z-10 flex items-center h-14 shrink-0 px-4 lg:px-8
+        bg-stone-100 border-b border-stone-200/60">
         <div className="flex items-center gap-3">
           <div className="w-10 shrink-0 lg:hidden" />
-          <a href="/chat" onClick={e => { e.preventDefault(); router.back(); }} className="flex items-center justify-center size-9 rounded-xl hover:bg-white/60 transition-colors text-stone-500 hover:text-sand-900">
+          <a href="/chat" onClick={e => { e.preventDefault(); router.back(); }} className="flex items-center justify-center size-9 rounded-xl hover:bg-stone-100 transition-colors text-stone-500 hover:text-sand-900" aria-label="Go back">
             <ArrowLeft className="size-4" />
           </a>
         </div>
@@ -64,7 +63,7 @@ export default function NewChatPage() {
       <div className="flex flex-col flex-1 w-full max-w-5xl mx-auto overflow-y-auto px-4 lg:px-8 py-6">
         <div className="flex-1 flex flex-col items-center justify-center text-center gap-8 pb-32 pt-8">
           <div className="flex flex-col items-center gap-5">
-            <div className="size-16 rounded-full bg-linear-to-tr from-amber-50 to-amber-100/60 flex items-center justify-center border border-amber-200/40 shadow-sm">
+            <div className="size-16 rounded-full bg-amber-50 flex items-center justify-center border border-amber-200/40 shadow-sm">
               <span className="material-symbols-outlined text-[32px] font-thin text-amber-700/70">auto_awesome</span>
             </div>
             <div className="flex flex-col gap-2">
@@ -80,9 +79,9 @@ export default function NewChatPage() {
               <button
                 key={s.label}
                 onClick={() => handleSuggestionClick(s.prompt)}
-                className="flex items-center gap-3.5 px-5 py-4 rounded-2xl bg-white/50 hover:bg-white/80 border border-white/60 hover:border-amber-200/50 shadow-sm hover:shadow-md transition-all text-left group"
+                className="flex items-center gap-3.5 px-5 py-4 rounded-2xl bg-white hover:bg-stone-50 border border-stone-200/60 hover:border-stone-300 shadow-sm transition-all text-left group"
               >
-                <div className="size-9 rounded-xl bg-amber-50/80 group-hover:bg-amber-100/80 flex items-center justify-center shrink-0 transition-colors">
+                <div className="size-9 rounded-xl bg-amber-50 group-hover:bg-amber-100 flex items-center justify-center shrink-0 transition-colors">
                   <span className="material-symbols-outlined text-[18px] font-light text-amber-700/70">{s.icon}</span>
                 </div>
                 <div className="flex flex-col gap-0.5 min-w-0">
@@ -98,7 +97,7 @@ export default function NewChatPage() {
       <div className="shrink-0 w-full px-3 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8 pt-4 bg-linear-to-t from-pearl-50 via-pearl-50/90 to-transparent relative z-20">
         <form
           onSubmit={handleSubmit}
-          className="relative max-w-3xl mx-auto bg-white/60 backdrop-blur-xl border border-white/60 shadow-levitate rounded-3xl sm:rounded-4xl p-1.5 sm:p-2 flex items-end gap-2 transition-all hover:bg-white/80 focus-within:bg-white focus-within:shadow-glow-hover"
+          className="relative max-w-3xl mx-auto bg-white border border-stone-200/60 shadow-levitate rounded-3xl sm:rounded-4xl p-1.5 sm:p-2 flex items-end gap-2 transition-all focus-within:shadow-md"
         >
           <textarea
             value={input}
@@ -115,7 +114,8 @@ export default function NewChatPage() {
             <button
               type="submit"
               disabled={!input.trim() || isCreating}
-              className="size-10 rounded-full bg-stone-900 flex items-center justify-center text-white disabled:opacity-50 disabled:bg-stone-300 hover:bg-black transition-all shadow-button disabled:shadow-none"
+              className="size-10 rounded-full bg-stone-900 flex items-center justify-center text-white disabled:opacity-50 disabled:bg-stone-300 hover:bg-stone-800 transition-all shadow-button disabled:shadow-none"
+              aria-label="Send message"
             >
               <Send className="size-4 ml-0.5" strokeWidth={2} />
             </button>

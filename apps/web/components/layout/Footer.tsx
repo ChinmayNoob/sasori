@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/30 bg-white/20 backdrop-blur-xl py-24 px-6 md:px-24 mt-20">
+    <footer className="border-t border-stone-200/60 bg-white py-24 px-6 md:px-24 mt-20">
       <div className="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16">
         <div className="col-span-2 lg:col-span-2 flex flex-col gap-8">
           <div className="flex items-center gap-4 text-sand-900">
@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="font-serif text-2xl tracking-wide font-light">Sasori</span>
           </div>
           <p className="text-stone-500 font-light text-sm max-w-xs leading-loose tracking-wide">
-            Making organizational knowledge accessible, accurate, and actionable through ethereal RAG technology.
+            Making organizational knowledge instantly accessible and trustworthy.
           </p>
         </div>
         

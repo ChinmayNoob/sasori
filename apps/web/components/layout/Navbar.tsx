@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-white/10 bg-pearl-50/60 backdrop-blur-xl px-6 md:px-12 lg:px-24 py-6 transition-all">
+    <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-stone-200/60 bg-white px-6 md:px-12 lg:px-24 py-6">
       <div className="flex items-center gap-4">
         <div className="size-8 text-sand-900/90">
           <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -15,13 +15,13 @@ export default function Navbar() {
         <nav className="flex items-center gap-10">
           <a className="text-sand-900/50 hover:text-sand-900 transition-colors text-xs font-medium uppercase tracking-[0.2em]" href="/login">Login</a>
         </nav>
-        <a href="/login" className="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-11 px-7 glass-button hover:bg-white/40 transition-all text-sand-900 text-xs font-medium uppercase tracking-[0.15em] shadow-button hover:shadow-lg">
+        <a href="/login" className="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-11 px-7 bg-white border border-stone-200/60 hover:bg-stone-50 transition-all text-sand-900 text-xs font-medium uppercase tracking-[0.15em] shadow-button hover:shadow-sm">
           <span className="truncate">Get Started</span>
         </a>
       </div>
-      <div className="md:hidden flex items-center">
-        <span className="material-symbols-outlined text-sand-900 cursor-pointer font-light">menu</span>
-      </div>
+      <a href="/login" className="md:hidden flex items-center" aria-label="Sign in">
+        <span className="material-symbols-outlined text-sand-900 font-light">login</span>
+      </a>
     </header>
   )
 }

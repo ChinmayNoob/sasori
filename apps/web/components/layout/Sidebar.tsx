@@ -68,7 +68,7 @@ export default function Sidebar() {
   const sidebarContent = (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-white/20">
+      <div className="p-4 border-b border-stone-200/60">
         <div className="flex items-center justify-between px-2 mb-6 mt-2 text-sand-900">
           <div className="flex items-center gap-3">
             <svg className="size-6 opacity-80" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -80,13 +80,13 @@ export default function Sidebar() {
               <span className="font-serif text-xl tracking-wide font-light">Sasori</span>
             </Link>
           </div>
-          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden p-1.5 rounded-lg hover:bg-white/30 text-stone-500">
+          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden p-1.5 rounded-lg hover:bg-white/30 text-stone-500" aria-label="Close menu">
             <X className="size-4" />
           </button>
         </div>
 
         <Link href="/chat" onClick={() => setIsMobileOpen(false)}
-          className="flex items-center gap-2 w-full py-2.5 px-3 rounded-xl bg-white/40 hover:bg-white/60 border border-white/50 text-sand-900 text-sm font-medium transition-all shadow-button hover:shadow-md group">
+          className="flex items-center gap-2 w-full py-2.5 px-3 rounded-xl bg-white hover:bg-stone-50 border border-stone-200/60 text-sand-900 text-sm font-medium transition-all shadow-button hover:shadow-md group">
           <PlusCircle className="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>New Chat</span>
         </Link>
@@ -107,7 +107,7 @@ export default function Sidebar() {
               const isActive = pathname === `/chat/${chat.id}`;
               return (
                 <Link key={chat.id} href={`/chat/${chat.id}`} onClick={() => setIsMobileOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group ${isActive ? "bg-white/50 text-sand-900 shadow-sm" : "text-stone-600 hover:text-sand-900 hover:bg-white/30"}`}>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group ${isActive ? "bg-white text-sand-900 shadow-sm" : "text-stone-600 hover:text-sand-900 hover:bg-stone-50"}`}>
                   <MessageSquare className={`size-4 shrink-0 ${isActive ? "opacity-70" : "opacity-40 group-hover:opacity-70"}`} />
                   <span className="truncate">{chat.title || "New conversation"}</span>
                 </Link>
@@ -118,11 +118,11 @@ export default function Sidebar() {
       </div>
 
       {/* Knowledge Base */}
-      <div className="p-4 border-t border-white/20 bg-white/10">
+      <div className="p-4 border-t border-stone-200/60 bg-stone-50/50">
         <h4 className="text-[10px] font-semibold text-stone-400 uppercase tracking-widest px-1 mb-3">Knowledge Base</h4>
         <div className="flex flex-col gap-2">
           <button onClick={() => { setIsDriveSyncModalOpen(true); setIsMobileOpen(false); }}
-            className="flex items-center justify-between w-full py-2 px-3 rounded-lg text-sm text-stone-600 hover:text-sand-900 hover:bg-white/30 transition-colors group">
+            className="flex items-center justify-between w-full py-2 px-3 rounded-lg text-sm text-stone-600 hover:text-sand-900 hover:bg-stone-50 transition-colors group">
             <div className="flex items-center gap-3">
               <Database className="size-4 opacity-50 group-hover:opacity-80 transition-opacity" />
               <span>Drive Sync</span>
@@ -131,7 +131,7 @@ export default function Sidebar() {
           </button>
 
           <button onClick={() => { setIsIndexedDocsModalOpen(true); setIsMobileOpen(false); }}
-            className="flex items-center gap-3 w-full py-2 px-3 rounded-lg text-sm text-stone-600 hover:text-sand-900 hover:bg-white/30 transition-colors group">
+            className="flex items-center gap-3 w-full py-2 px-3 rounded-lg text-sm text-stone-600 hover:text-sand-900 hover:bg-stone-50 transition-colors group">
             <FileText className="size-4 opacity-50 group-hover:opacity-80 transition-opacity" />
             <span>Indexed Documents</span>
           </button>
@@ -152,15 +152,16 @@ export default function Sidebar() {
     <>
       {/* Mobile hamburger */}
       <button onClick={() => setIsMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-30 p-2.5 rounded-xl bg-white/80 backdrop-blur border border-white/60 shadow-button text-stone-600 hover:text-sand-900">
+        className="lg:hidden fixed top-4 left-4 z-30 p-2.5 rounded-xl bg-white border border-stone-200/60 shadow-button text-stone-600 hover:text-sand-900"
+        aria-label="Open menu">
         <Menu className="size-5" />
       </button>
 
       {isMobileOpen && (
-        <div className="lg:hidden fixed inset-0 bg-stone-900/20 backdrop-blur-sm z-40" onClick={() => setIsMobileOpen(false)} />
+        <div className="lg:hidden fixed inset-0 bg-stone-900/20 z-40" onClick={() => setIsMobileOpen(false)} />
       )}
 
-      <div className={`fixed lg:relative inset-y-0 left-0 z-50 lg:z-20 w-64 h-screen border-r border-white/20 bg-pearl-50/90 lg:bg-pearl-50/40 backdrop-blur-3xl shadow-glow flex flex-col shrink-0 transition-transform duration-300 ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
+      <div className={`fixed lg:relative inset-y-0 left-0 z-50 lg:z-20 w-64 h-screen border-r border-stone-200/60 bg-pearl-50 flex flex-col shrink-0 transition-transform duration-300 ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         {sidebarContent}
       </div>
 

@@ -28,14 +28,9 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-pearl-50 flex overflow-hidden relative">
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLk_Evsx_DCRFNCi7dx_Mp8la_QFvFn9-ca2qxOsCCJzOzJEC5Q3YKnuSDpCLmuC8lH1HrYXqdtsJm9NAWaY2qYdeU4kdlfCFPrJApj5JGQ6Pp856bPXYjittVAemwH3LbnclYQG5tLtxQE-_OWFwNa8YvTaQFkdUeQqppgomUfB384nvww0abPC8X_AhY6isQulk-q67IuOIi_RxynP9NNmm4sSFdC0euF5T0F3fSWKEZDReROE1P9KVN_tXVC9LpZdRfexR6h96Q')] bg-cover bg-center opacity-5 mix-blend-multiply pointer-events-none"></div>
-
-      {/* Left side panel with copy */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-stone-900 overflow-hidden flex-col justify-between p-12 lg:p-24 shadow-2xl z-10">
          <div className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" style={{ backgroundImage: 'url("/images/p-13.jpg")' }}></div>
-         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-stone-800/60 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none"></div>
-         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-stone-700/40 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none"></div>
-         
+
          <div className="relative z-10 flex items-center gap-4 text-pearl-50">
            <svg className="size-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
              <path d="M24 8C15.1634 8 8 15.1634 8 24C8 32.8366 15.1634 40 24 40C32.8366 40 40 32.8366 40 24C40 15.1634 32.8366 8 24 8ZM24 10C31.732 10 38 16.268 38 24C38 31.732 31.732 38 24 38C16.268 38 10 31.732 10 24C10 16.268 16.268 10 24 10Z" fill="currentColor"></path>
@@ -52,19 +47,12 @@ export default function LoginPage() {
             <p className="text-stone-300 font-light text-lg leading-relaxed tracking-wide">
               Sync securely with Google Drive. Ask questions, extract insights, and rely on hyper-accurate citations mapped instantly to your truth.
             </p>
-            <div className="flex items-center gap-4 mt-4">
-               <div className="flex -space-x-3">
-                 <div className="w-10 h-10 rounded-full bg-stone-500 border border-stone-800 shadow-sm"></div>
-                 <div className="w-10 h-10 rounded-full bg-stone-600 border border-stone-800 shadow-sm"></div>
-                 <div className="w-10 h-10 rounded-full bg-stone-700 border border-stone-800 shadow-sm"></div>
-               </div>
-               <span className="text-stone-400 text-xs font-medium uppercase tracking-[0.2em] ml-2">Join forward-thinking teams</span>
-            </div>
+
          </div>
       </div>
 
       {/* Right side form */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 lg:p-24 relative z-10 bg-pearl-50/80 backdrop-blur-xl">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 lg:p-24 relative z-10 bg-pearl-50">
         <Link href="/" className="absolute top-12 left-12 flex items-center gap-2 text-stone-500 hover:text-sand-900 transition-colors text-[10px] font-semibold uppercase tracking-[0.2em] group">
             <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
             Back to Home
@@ -102,7 +90,7 @@ export default function LoginPage() {
 
           <p className="mt-12 text-[11px] text-stone-400 font-light tracking-wide leading-loose">
             By continuing, you acknowledge that you have read and agree to our <br/>
-            <a href="#" className="underline underline-offset-4 hover:text-stone-600 transition-colors">Terms of Service</a> and <a href="#" className="underline underline-offset-4 hover:text-stone-600 transition-colors">Privacy Policy</a>.
+            <span className="underline underline-offset-4">Terms of Service</span> and <span className="underline underline-offset-4">Privacy Policy</span>.
           </p>
         </div>
       </div>
