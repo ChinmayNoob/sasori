@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConversationDemo from "@/components/landing/ConversationDemo";
+import DemoVideo from "@/components/landing/DemoVideo";
 import { CloudUpload, Brain, FileCheck } from "lucide-react";
 
 const PIPELINE = [
@@ -49,8 +50,11 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full lg:w-[60%] relative">
-              <div className="bg-pearl-50 border border-stone-200/60 rounded-2xl p-5 md:p-8 shadow-levitate">
-                <ConversationDemo />
+              <div className="bg-pearl-50 border border-stone-200/60 rounded-2xl overflow-hidden shadow-levitate">
+                <div className="w-full h-28 md:h-36 bg-cover bg-center" style={{ backgroundImage: 'url("/images/p-13.jpg")' }}></div>
+                <div className="p-5 md:p-8">
+                  <ConversationDemo />
+                </div>
               </div>
             </div>
           </div>
@@ -90,6 +94,15 @@ export default function Home() {
             >
               Get Early Access
             </a>
+          </div>
+        </section>
+
+        <section className="w-full py-12 md:py-16 flex flex-col items-center gap-10">
+          <h2 className="text-sand-900 text-3xl md:text-4xl font-thin tracking-tight font-serif">
+            See it in action
+          </h2>
+          <div className="w-full max-w-4xl rounded-2xl overflow-hidden border border-stone-200/60 shadow-levitate bg-pearl-50">
+            <DemoVideo />
           </div>
         </section>
       </main>
