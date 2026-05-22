@@ -1,6 +1,8 @@
 # Sasori - System Architecture
 
+> A beginner-friendly deep-dive into how Sasori's RAG pipeline, ReAct agent, and background workers fit together.
 
+---
 
 ## Table of Contents
 
