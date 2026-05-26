@@ -264,7 +264,7 @@ flowchart TD
     D -->|Yes| C
     D -->|No| E[Increment retryCount]
     E --> F[Re-enqueue with exponential backoff<br/>2s → 4s → 8s]
-    C --> G[Set ingestionPhase: "failed"]
+    C --> G["Set ingestionPhase: failed"]
     G --> H["Manual retry via POST /drive/files/:id/retry"]
     H --> I{raw_documents exists?}
     I -->|Yes| J[Reset to chunk_pending<br/>Re-enqueue vectorize]
