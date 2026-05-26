@@ -265,7 +265,7 @@ flowchart TD
     D -->|No| E[Increment retryCount]
     E --> F[Re-enqueue with exponential backoff<br/>2s → 4s → 8s]
     C --> G[Set ingestionPhase: "failed"]
-    G --> H[Manual retry via POST /drive/files/:id/retry]
+    G --> H["Manual retry via POST /drive/files/:id/retry"]
     H --> I{raw_documents exists?}
     I -->|Yes| J[Reset to chunk_pending<br/>Re-enqueue vectorize]
     I -->|No| K[Reset to discovered<br/>Re-enqueue fetch]
@@ -359,7 +359,7 @@ flowchart TD
     A[User asks question] --> B[Agent calls drive_retrieve]
     B --> C{Results found?}
     C -->|Yes| D[Agent calls final_answer<br/>using Drive citations]
-    C -->|No| E[Agent calls web_search<br/>(Tavily)]
+    C -->|No| E["Agent calls web_search (Tavily)"]
     E --> F{Web results useful?}
     F -->|Yes| G[Agent may call web_scrape<br/>for full page text]
     F -->|No| H[Agent calls final_answer<br/>with whatever context exists]
