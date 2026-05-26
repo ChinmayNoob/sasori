@@ -19,6 +19,14 @@
 
 ---
 
+<p align="center">
+  <video src="apps/web/public/videos/sasori.mp4" controls width="100%" max-width="800">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+---
+
 ## 1. What is Sasori?
 
 Sasori is a RAG (Retrieval-Augmented Generation) application that:
