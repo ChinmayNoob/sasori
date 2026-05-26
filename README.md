@@ -20,7 +20,7 @@
 ---
 
 <p align="center">
-  <video src="apps/web/public/videos/sasori.mp4" controls width="100%" max-width="800">
+  <video src="https://github.com/user-attachments/assets/64ee9738-e915-41e2-b10f-305ffaf2a5f1" controls width="100%" max-width="800">
     Your browser does not support the video tag.
   </video>
 </p>
