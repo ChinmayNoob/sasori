@@ -52,7 +52,7 @@ export default function DemoVideo() {
       } else {
         await document.exitFullscreen();
       }
-    } catch {}
+    } catch { }
   }, []);
 
   const seek = useCallback((clientX: number) => {
@@ -145,7 +145,7 @@ export default function DemoVideo() {
         playsInline
         className="w-full h-auto"
       >
-        <source src="/videos/sasori.mp4" type="video/mp4" />
+        <source src="/videos/sasori-new.mp4" type="video/mp4" />
       </video>
 
       {!isPlaying && (
@@ -161,9 +161,8 @@ export default function DemoVideo() {
       )}
 
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent pt-10 pb-3 px-4 flex flex-col gap-2.5 transition-opacity duration-300 ${
-          showControls || seeking || !isPlaying ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent pt-10 pb-3 px-4 flex flex-col gap-2.5 transition-opacity duration-300 ${showControls || seeking || !isPlaying ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       >
         <div
           ref={progressRef}
